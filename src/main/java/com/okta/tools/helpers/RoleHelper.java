@@ -62,6 +62,7 @@ public class RoleHelper {
         String roleArn;
 
         if (roleIdpPairs.containsKey(environment.awsRoleToAssume)) {
+            System.err.println("Found environment " + environment.awsRoleToAssume);
             principalArn = roleIdpPairs.get(environment.awsRoleToAssume);
             roleArn = environment.awsRoleToAssume;
         } else if (roleIdpPairs.size() > 1) {
@@ -101,7 +102,7 @@ public class RoleHelper {
             }
 
             roleArn = roleArns.get(selection);
-            principalArn = getKey(roleIdpPairs, roleArn);
+            principalArn = roleIdpPairs.get(roleArn);
         } else {
             Map.Entry<String, String> role = roleIdpPairs.entrySet().iterator().next();
             System.err.println("Auto select role as only one is available : " + role.getKey());
@@ -130,7 +131,7 @@ public class RoleHelper {
     public List<AccountOption> getAvailableRoles(String samlResponse) throws IOException {
         Map<String, String> roles = AwsSamlRoleUtils.getRoles(samlResponse);
         if (roles.size() == 1) {
-            String roleArn = roles.keySet().iterator().next();
+            String roleArn = roles.values().iterator().next();
             return Collections.singletonList(
                     new AccountOption("Account:  (" + roleArn.substring("arn:aws:iam::".length(), "arn:aws:iam::".length() + 12) + ")",
                             Collections.singletonList(
