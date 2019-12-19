@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-repo_url="https://github.com/oktadeveloper/okta-aws-cli-assume-role"
+repo_url="https://github.com/unite-io/aws-cli-assume-role"
 dotokta="${HOME}/.okta"
 
 printusage() {
@@ -185,19 +185,19 @@ chmod +x "${PREFIX}/bin/awscli"
 
 # Configure Okta AWS CLI
 mkdir -p ${HOME}/.okta                       # `config.properties` must
-oktaConfig="${HOME}/.okta/config.properties" # reside in ~/.okta.
-if [[ -e "${oktaConfig}" ]]; then
-    echo "Found $(echo ${oktaConfig} | sed "s#$HOME#~#g")"
-else
-    echo "Creating example $(echo ${oktaConfig} | sed "s#$HOME#~#g")"
-    cat <<EOF >"${oktaConfig}"
-#OktaAWSCLI
-OKTA_ORG=acmecorp.okta.com.changeme.local
-OKTA_AWS_APP_URL=https://acmecorp.oktapreview.com.changeme.local/home/amazon_aws/0oa5zrwfs815KJmVF0h7/137
-OKTA_USERNAME=\$env:USERNAME
-OKTA_BROWSER_AUTH=true
-EOF
-fi
+# oktaConfig="${HOME}/.okta/config.properties" # reside in ~/.okta.
+# if [[ -e "${oktaConfig}" ]]; then
+#     echo "Found $(echo ${oktaConfig} | sed "s#$HOME#~#g")"
+# else
+#     echo "Creating example $(echo ${oktaConfig} | sed "s#$HOME#~#g")"
+#     cat <<EOF >"${oktaConfig}"
+# #OktaAWSCLI
+# OKTA_ORG=acmecorp.okta.com.changeme.local
+# OKTA_AWS_APP_URL=https://acmecorp.oktapreview.com.changeme.local/home/amazon_aws/0oa5zrwfs815KJmVF0h7/137
+# OKTA_USERNAME=\$env:USERNAME
+# OKTA_BROWSER_AUTH=true
+# EOF
+# fi
 
 # Print advice for ~/.bash_profile
 shellstmt=$(cat <<EOF | sed "s#$HOME#\$HOME#g"

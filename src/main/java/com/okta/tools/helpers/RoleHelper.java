@@ -101,7 +101,7 @@ public class RoleHelper {
             }
 
             roleArn = roleArns.get(selection);
-            principalArn = roleIdpPairs.get(roleArn);
+            principalArn = getKey(roleIdpPairs, roleArn);
         } else {
             Map.Entry<String, String> role = roleIdpPairs.entrySet().iterator().next();
             System.err.println("Auto select role as only one is available : " + role.getKey());
@@ -116,6 +116,15 @@ public class RoleHelper {
                 .withRoleArn(roleArn)
                 .withSAMLAssertion(samlResponse)
                 .withDurationSeconds(stsDuration);
+    }
+
+    public String getKey(Map<String, String> map, String value) {
+        for (Map.Entry<String,String> entry : map.entrySet()) {
+            if (entry.getValue().equals(value)) {
+                return entry.getKey();
+            }
+        }
+        return null;
     }
 
     public List<AccountOption> getAvailableRoles(String samlResponse) throws IOException {

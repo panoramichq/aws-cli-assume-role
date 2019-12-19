@@ -30,17 +30,17 @@ function Install-OktaAwsCli {
     New-Item -ItemType File -Path $HOME\.okta\uptodate -Force | Out-Null
     # .NET apparently doesn't default to TLS 1.2 and GitHub requires it
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
-    $LatestReleaseResponse = Invoke-RestMethod -Uri "https://api.github.com/repos/oktadeveloper/okta-aws-cli-assume-role/releases/latest"
+    $LatestReleaseResponse = Invoke-RestMethod -Uri "https://api.github.com/repos/unite-io/aws-cli-assume-role/releases/latest"
     $Asset = $LatestReleaseResponse.assets | Where-Object { $_.content_type -eq "application/java-archive" }
     $Client = New-Object System.Net.WebClient
     $Client.DownloadFile($Asset.browser_download_url, "$Home\.okta\okta-aws-cli.jar")
-    Add-Content -Path $Home/.okta/config.properties -Value "
-#OktaAWSCLI
-OKTA_ORG=acmecorp.okta.com.changeme.local
-OKTA_AWS_APP_URL=https://acmecorp.oktapreview.com.changeme.local/home/amazon_aws/0oa5zrwfs815KJmVF0h7/137
-OKTA_USERNAME=$env:USERNAME
-OKTA_BROWSER_AUTH=true
-"
+#     Add-Content -Path $Home/.okta/config.properties -Value "
+# #OktaAWSCLI
+# OKTA_ORG=acmecorp.okta.com.changeme.local
+# OKTA_AWS_APP_URL=https://acmecorp.oktapreview.com.changeme.local/home/amazon_aws/0oa5zrwfs815KJmVF0h7/137
+# OKTA_USERNAME=$env:USERNAME
+# OKTA_BROWSER_AUTH=true
+# "
     Add-Content -Path $Home/.okta/logging.properties -Value "
 com.amazonaws.auth.profile.internal.BasicProfileConfigLoader = NONE
 "
