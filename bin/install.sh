@@ -179,7 +179,8 @@ chmod +x "${PREFIX}/bin/okta-listroles"
 # awscli
 cat <<'EOF' >"${PREFIX}/bin/awscli"
 #!/bin/bash
-withokta aws default "$@"
+PROFILE="${AWS_PROFILE:-default}"
+withokta aws $PROFILE "$@"
 EOF
 chmod +x "${PREFIX}/bin/awscli"
 
