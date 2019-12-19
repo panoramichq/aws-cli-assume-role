@@ -129,7 +129,7 @@ final class OktaAwsCliAssumeRole {
     }
 
     private ProfileSAMLResult doRequest(Instant startInstant) throws IOException, InterruptedException {
-        String samlResponse = oktaSaml.getSamlResponse().replace("\n", "").replace("\r", "");
+        String samlResponse = oktaSaml.getSamlResponse();
         AssumeRoleWithSAMLRequest assumeRequest = roleHelper.chooseAwsRoleToAssume(samlResponse);
         Instant sessionExpiry = startInstant.plus((long) assumeRequest.getDurationSeconds() - (long) 30, ChronoUnit.SECONDS);
         AssumeRoleWithSAMLResult assumeResult = roleHelper.assumeChosenAwsRole(assumeRequest);

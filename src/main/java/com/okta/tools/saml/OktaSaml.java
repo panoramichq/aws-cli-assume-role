@@ -39,7 +39,7 @@ public class OktaSaml {
 
     public String getSamlResponse() throws IOException, InterruptedException {
         if (environment.browserAuth) {
-            return BrowserAuthentication.login(environment);
+            return BrowserAuthentication.login(environment).replace("\n", "").replace("\r", "");
         } else {
             try {
                 return getSamlResponseForAwsRefresh();
@@ -78,7 +78,7 @@ public class OktaSaml {
                 }
             }
         }
-        return samlResponseInputElement.attr("value");
+        return samlResponseInputElement.attr("value").replace("\n", "").replace("\r", "");
     }
 
     public static final class PromptForReAuthenticationException extends IllegalStateException {

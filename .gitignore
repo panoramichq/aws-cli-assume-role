@@ -34,6 +34,7 @@ dependency-reduced-pom.xml
 move.bat
 .factorypath
 .vscode
+.DS_Store
 
 
 # User-specific stuff
