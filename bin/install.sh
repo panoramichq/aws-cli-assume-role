@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-repo_url="https://github.com/unite-io/aws-cli-assume-role"
+repo_url="https://github.com/panoramichq/aws-cli-assume-role"
 dotokta="${HOME}/.okta"
 
 printusage() {
@@ -80,7 +80,7 @@ PREFIX="$(cd -P -- "${PREFIX}" && pwd)"
 echo "Installing into ${PREFIX}" | sed "s#$HOME#~#g"
 
 mkdir -p ${PREFIX}
-releaseUrl=$(curl --head --silent ${repo_url}/releases/latest | grep "Location:" | cut -c11-)
+releaseUrl=$(curl --head --silent ${repo_url}/releases/latest | grep -i "Location:" | cut -c11-)
 releaseTag=$(echo $releaseUrl | awk 'BEGIN{FS="/"}{print $8}' | tr -d '\r')
 url=${repo_url}/releases/download/${releaseTag}/okta-aws-cli-${releaseTag:1}.jar
 dest=${PREFIX}/$(basename ${url})
